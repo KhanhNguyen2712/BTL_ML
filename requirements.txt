@@ -1,0 +1,12 @@
+ydata-profiling
+numpy
+pandas
+matplotlib
+seaborn
+category_encoders
+scikit-learn
+xgboost
+tqdm
+jupyter
+ipykernel
+notebook

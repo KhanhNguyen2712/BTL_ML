@@ -1,0 +1,20 @@
+name: ml_btl
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.12
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - xgboost
+  - jupyter
+  - ipykernel
+  - notebook
+  - tqdm
+  - category_encoders
+  - pip:
+    - ydata-profiling
