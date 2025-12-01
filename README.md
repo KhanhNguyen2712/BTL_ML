@@ -3,9 +3,8 @@
 [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-latest-orange.svg)](https://scikit-learn.org/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-latest-red.svg)](https://xgboost.readthedocs.io/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Dự án Machine Learning dự đoán giá xe cũ tại thị trường Đức sử dụng các thuật toán Regression. Dự án so sánh 6 mô hình ML khác nhau và thực hiện hyperparameter tuning để đạt được hiệu suất tốt nhất.
+Bài tập lớn Machine Learning dự đoán giá xe cũ tại thị trường Đức sử dụng các thuật toán Regression. Dự án so sánh 6 mô hình ML khác nhau và thực hiện hyperparameter tuning để đạt được hiệu suất tốt nhất.
 
 ---
 
@@ -26,13 +25,13 @@ Dự án Machine Learning dự đoán giá xe cũ tại thị trường Đức s
 
 ## 🎯 Giới thiệu
 
-Dự án này xây dựng mô hình Machine Learning để dự đoán giá xe cũ tại thị trường Đức dựa trên các đặc điểm kỹ thuật và thông tin xe. Mục tiêu là tìm ra mô hình có độ chính xác cao nhất và hiểu được các yếu tố ảnh hưởng đến giá xe.
+Bài tập lớn này xây dựng mô hình Machine Learning để dự đoán giá xe cũ tại thị trường Đức dựa trên các đặc điểm kỹ thuật và thông tin xe. Mục tiêu là tìm ra mô hình có độ chính xác cao nhất và hiểu được các yếu tố ảnh hưởng đến giá xe.
 
-### 🎯 Mục tiêu chính:
+## 🎯 Mục tiêu chính:
 
 - Phân tích và tiền xử lý dữ liệu xe cũ từ thị trường Đức
 - So sánh hiệu suất của 6 mô hình ML: XGBoost, Random Forest, Gradient Boosting, Decision Tree, Linear Regression, KNN
-- Tối ưu hóa hyperparameters cho các mô hình tốt nhất
+- Tối ưu hóa hyperparameters cho 2 mô hình: KNN và Random Forest
 - Đạt được R² score > 0.80 trên tập test
 
 ---
@@ -100,8 +99,7 @@ Dự án này xây dựng mô hình Machine Learning để dự đoán giá xe c
 
 ```bash
 # 1. Clone repository (nếu có)
-git clone <repository-url>
-cd BTL
+git clone https://github.com/KhanhNguyen2712/BTL_ML.git
 
 # 2. Tạo môi trường conda từ file environments.yml
 conda env create -f environments.yml
@@ -163,12 +161,12 @@ BTL/
 ├── requirements.txt           # Dependencies cho pip
 ├── environments.yml           # Environment config cho conda
 │
-└── README.md                  # File này
+└── README.md                  # Mô tả cho toàn bộ bài tập lớn
 ```
 
 ---
 
-## 🚀 Hướng dẫn sử dụng
+## 🚀 Hướng dẫn chạy
 
 ### 1. Chuẩn bị dữ liệu
 
@@ -189,34 +187,9 @@ jupyter notebook
 
 ### 3. Chạy notebook
 
-1. Mở file `format_code.ipynb`
+1. Mở file `price_prediction.ipynb`
 2. Chạy từng cell theo thứ tự từ trên xuống dưới
-3. **Lưu ý**: Cell EDA profiling (`ydata_profiling`) có thể mất 5-10 phút
 
-### 4. Các bước thực hiện trong notebook
-
-```python
-# Cell 1-2: Import libraries và load data
-# ✅ Chạy ngay, không cần thay đổi
-
-# Cell 3-5: EDA với ydata_profiling
-# ⏳ Có thể mất 5-10 phút
-# 💡 Có thể skip nếu đã chạy trước đó
-
-# Cell 6-15: Data Preprocessing
-# ✅ Chạy tuần tự, quan sát kết quả visualization
-
-# Cell 16-20: Model Training với Cross-Validation
-# ⏳ Mất 2-5 phút tùy CPU
-# 💡 Sử dụng n_jobs=-1 để tận dụng tất cả CPU cores
-
-# Cell 21-23: Hyperparameter Tuning
-# ⏳ GridSearchCV: 3-5 phút
-# ⏳ RandomizedSearchCV: 5-10 phút
-
-# Cell 24-27: Final Testing
-# ✅ Đánh giá mô hình cuối cùng trên test set
-```
 
 ---
 
@@ -314,9 +287,9 @@ param_grid = {
 ```python
 param_dist = {
     'n_estimators': [100, 200],
-    'max_depth': [None, 10, 20],
-    'min_samples_split': [2, 5, 10],
-    'min_samples_leaf': [1, 2, 4]
+    'max_depth': [10, 20],
+    'min_samples_split': [2, 5],
+    'min_samples_leaf': [1, 2]
 }
 ```
 
@@ -324,7 +297,7 @@ param_dist = {
 
 - Train/Test split (80/20)
 - Train mô hình với best parameters
-- Đánh giá trên holdout test set
+- Đánh giá trên test set
 
 ---
 
@@ -334,12 +307,12 @@ param_dist = {
 
 | Model             | Test R²    | Test MAE (€) | Test RMSE (€) | Fit Time (s) |
 | ----------------- | ---------- | ------------ | ------------- | ------------ |
-| Random Forest     | 0.8769     |              | 1,890         | 12.5         |
-| XGBoost           | 0.8475     | 1,268        | 1,912         | 8.3          |
-| Gradient Boosting | 0.8320     | 1,356        | 2,045         | 45.2         |
-| KNN               | 0.7850     | 1,654        | 2,234         | 2.1          |
-| Linear Regression | 0.6420     | 2,145        | 2,987         | 0.8          |
-| Decision Tree     | 0.7120     | 1,845        | 2,567         | 3.2          |
+| Random Forest     | 0.8772     | 903.5        | 1367.7        | 25.9         |
+| XGBoost           | 0.8859     | 882.3        | 1321.4        | 0.11         |
+| Gradient Boosting | 0.8473     | 1040.0       | 1528.5        | 26.5         |
+| KNN               | 0.8530     | 992.3        | 1499.6        | 0.43         |
+| Linear Regression | 0.7150     | 1554.9       | 2088.2        | 0.6          |
+| Decision Tree     | 0.8264     | 1039.6       | 1629.5        | 1.08         |
 
 _Lưu ý: Kết quả có thể khác nhau tùy thuộc vào preprocessing và tuning_
 
@@ -347,14 +320,14 @@ _Lưu ý: Kết quả có thể khác nhau tùy thuộc vào preprocessing và t
 
 **Random Forest (After Tuning):**
 
-- ✅ R² Score: **0.85+**
-- ✅ MAE: **~1,200-1,300 €**
-- ✅ RMSE: **~1,800-1,900 €**
+- ✅ R² Score: **0.8831**
+- ✅ MAE: **882.3**
+- ✅ RMSE: **1331.6**
 
 **Ý nghĩa:**
 
-- Mô hình giải thích được **85%** sự biến thiên của giá xe
-- Sai số trung bình khoảng **1,200€** (rất tốt cho dữ liệu xe cũ)
+- Mô hình giải thích được **88.31%** sự biến thiên của giá xe
+- Sai số trung bình khoảng **882.3€** (khá tốt cho dữ liệu xe cũ)
 
 ---
 
@@ -481,7 +454,7 @@ X_sample, y_sample = X.sample(n=100000), y.sample(n=100000)
 
 ---
 
-## 👨‍💻 Tác giả
+## 👨‍💻 Tác giả: Nguyễn Minh Khánh - 2311518
 
 **Tên dự án**: German Used Car Price Prediction  
 **Mục đích**: Học tập và nghiên cứu Machine Learning  
